@@ -33,11 +33,12 @@ public class TourController {
 
     @Autowired
     private TourRepository tourRepository;
+
     @Autowired
     private PlaceRepository placeRepository;
+
     @Autowired
     private CategoryRepository categoryRepositoryRepository;
-
     @Autowired
     FilesStorageService storageService;
 
@@ -47,7 +48,7 @@ public class TourController {
     private static final Logger logger = LoggerFactory.getLogger(PlaceController.class);
 
     // Get all tours
-//    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @GetMapping
     public List<Tour> getAllTours() {
         return tourRepository.findAll();
