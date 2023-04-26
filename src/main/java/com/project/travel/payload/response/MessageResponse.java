@@ -1,6 +1,8 @@
 package com.project.travel.payload.response;
 
-public class MessageResponse {
+import java.io.Serializable;
+
+public class MessageResponse implements Serializable {
 	private String message;
 
 	public MessageResponse(String message) {

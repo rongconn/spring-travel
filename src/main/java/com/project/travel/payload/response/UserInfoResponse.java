@@ -1,8 +1,9 @@
 package com.project.travel.payload.response;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class UserInfoResponse {
+public class UserInfoResponse implements Serializable {
 	private Long id;
 	private String username;
 	private String email;

@@ -1,13 +1,19 @@
 package com.project.travel.controllers;
 
+import com.project.travel.enums.ETour;
+import com.project.travel.models.Place;
 import com.project.travel.models.Tour;
+import com.project.travel.payload.response.SearchTourAndPlaceResponse;
 import com.project.travel.repository.PlaceRepository;
 import com.project.travel.repository.TourRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = "*")
 @RequestMapping("api/search")
@@ -20,9 +26,25 @@ public class SearchController {
     PlaceRepository placeRepository;
 
     @GetMapping
-    public ResponseEntity<?> searchPlace(@RequestParam("query") String query) {
-        System.out.println("alo alo alo alo:::"+query);
-        List<Tour> tours = tourRepository.searchTour(query.toLowerCase());
-        return ResponseEntity.ok().body(tours);
+    public ResponseEntity<?> searchPlace(
+            @RequestParam("query") String query,
+            @RequestParam("city") String city,
+            @RequestParam("province") String province,
+            @RequestParam("interests") String interests
+    ) {
+        List<Place> places = placeRepository.searchPlace(
+                query.toLowerCase(),
+                city.toLowerCase(),
+                province.toLowerCase()
+        );
+        List<Tour> tours = tourRepository.searchTour(
+                query.toLowerCase(),
+                city.toLowerCase(),
+                province.toLowerCase(),
+                interests
+        );
+        SearchTourAndPlaceResponse response = new SearchTourAndPlaceResponse(tours, places);
+
+        return ResponseEntity.ok().body(response);
     }
 }

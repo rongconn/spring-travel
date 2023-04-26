@@ -26,7 +26,10 @@ public class Category {
 
     private String image;
 
-//    @ManyToMany(mappedBy = "categories", fetch = FetchType.EAGER)
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "tour_category",
+//            joinColumns = @JoinColumn(name = "category_id"),
+//            inverseJoinColumns = @JoinColumn(name = "tour_id"))
 //    private Set<Tour> tours;
 
     public Integer getId() {

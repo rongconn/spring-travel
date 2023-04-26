@@ -1,9 +1,6 @@
 package com.project.travel.models;
 
-import com.project.travel.enums.ETour;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,8 +25,7 @@ public class Tour {
     private Integer rating;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    private ETour type;
+    private String type;
 
     @Column(columnDefinition = "text")
     private String description;
@@ -41,7 +37,7 @@ public class Tour {
             inverseJoinColumns = @JoinColumn(name = "place_id"))
     private Set<Place> places = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tour_category",
             joinColumns = @JoinColumn(name = "tour_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
@@ -99,11 +95,11 @@ public class Tour {
         this.rating = rating;
     }
 
-    public ETour getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(ETour type) {
+    public void setType(String type) {
         this.type = type;
     }
 

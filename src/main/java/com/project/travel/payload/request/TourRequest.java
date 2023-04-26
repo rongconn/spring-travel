@@ -21,8 +21,8 @@ public class TourRequest {
     private Float price;
     @NotNull
     private Integer rating;
-    @Enumerated(EnumType.STRING)
-    private ETour type;
+
+    private String type;
     private String description;
 
     public String getName() {
@@ -73,11 +73,11 @@ public class TourRequest {
         this.rating = rating;
     }
 
-    public ETour getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(ETour type) {
+    public void setType(String type) {
         this.type = type;
     }
 

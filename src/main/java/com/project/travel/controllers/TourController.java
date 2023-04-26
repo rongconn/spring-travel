@@ -114,6 +114,16 @@ public class TourController {
         }
         return ResponseEntity.ok().body(tour);
     }
+    // Get a tour by id
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @GetMapping("/category")
+    public ResponseEntity<List<Tour>> getTourByCategoryId(@RequestParam("id") Integer id) {
+        List<Tour> tour = tourRepository.findByCategoryId(id).orElse(null);
+        if (tour == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(tour);
+    }
 
     // Update a tour
     @PreAuthorize("hasRole('ADMIN')")
