@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/places")
 public class PlaceController {
@@ -57,12 +58,12 @@ public class PlaceController {
         Place place = new Place();
         String filename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         if (!filename.equals("")){
-            place.setImage(fileURL+filename);
             try{
                 storageService.save(file);
             }catch(Exception e){
                 logger.error(e.getMessage());
             }
+            place.setImage(fileURL+filename);
         }
 
         place.setName(placeRequest.getName());
@@ -85,12 +86,12 @@ public class PlaceController {
         if (place != null) {
             String filename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
             if (!filename.equals("")){
-                place.setImage(fileURL+filename);
                 try{
                     storageService.save(file);
                 }catch(Exception e){
                     logger.error(e.getMessage());
                 }
+                place.setImage(fileURL+filename);
             }
 
             place.setName(placeRequest.getName());

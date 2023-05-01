@@ -5,7 +5,10 @@ import java.util.Date;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import com.google.gson.Gson;
+import com.project.travel.dto.JwtPayload;
 import com.project.travel.security.services.UserDetailsImpl;
+import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +41,7 @@ public class JwtUtils {
   }
 
   public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
-    String jwt = generateTokenFromUsername(userPrincipal.getUsername());
+    String jwt = generateTokenFromUsername(userPrincipal.getUsername(), userPrincipal.getId());
     ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
     return cookie;
   }
@@ -71,12 +74,22 @@ public class JwtUtils {
     return false;
   }
   
-  public String generateTokenFromUsername(String username) {   
+  public String generateTokenFromUsername(String username, Long userId) {
+    JwtPayload payload = new JwtPayload(userId, username);
     return Jwts.builder()
-        .setSubject(username)
+        .setSubject(new Gson().toJson(payload))
         .setIssuedAt(new Date())
         .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
         .signWith(SignatureAlgorithm.HS512, jwtSecret)
         .compact();
+  }
+
+  public JwtPayload getJwtPayloadFromToken(String token, String secretKey) {
+    String payloadJson = Jwts.parser()
+            .setSigningKey(jwtSecret)
+            .parseClaimsJws(token)
+            .getBody()
+            .getSubject();
+    return new Gson().fromJson(payloadJson, JwtPayload.class);
   }
 }

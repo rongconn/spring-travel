@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/category")
 public class CategoryController {
@@ -25,7 +26,7 @@ public class CategoryController {
     private CategoryRepository categoryRepository;
 
     @Autowired
-    FilesStorageService storageService;
+    private FilesStorageService storageService;
 
     @Value("${app.fileURL}")
     private String fileURL;
@@ -60,12 +61,12 @@ public class CategoryController {
 
         String filename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         if (!filename.equals("")){
-            category.setImage(fileURL + filename);
             try{
                 storageService.save(file);
             }catch(Exception e){
                 logger.error(e.getMessage());
             }
+            category.setImage(fileURL + filename);
         }
         categoryRepository.save(category);
         return ResponseEntity.ok(category);

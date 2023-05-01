@@ -43,22 +43,22 @@ import com.project.travel.security.services.UserDetailsImpl;
 @RequestMapping("/api/auth")
 public class AuthController {
   @Autowired
-  AuthenticationManager authenticationManager;
+  private AuthenticationManager authenticationManager;
 
   @Autowired
-  UserRepository userRepository;
+  private UserRepository userRepository;
 
   @Autowired
-  RoleRepository roleRepository;
+  private RoleRepository roleRepository;
 
   @Autowired
-  InterestRepository interestRepository;
+  private InterestRepository interestRepository;
 
   @Autowired
-  PasswordEncoder encoder;
+  private PasswordEncoder encoder;
 
   @Autowired
-  JwtUtils jwtUtils;
+  private JwtUtils jwtUtils;
 
   @PostMapping("/login")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {

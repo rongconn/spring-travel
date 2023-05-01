@@ -82,12 +82,12 @@ public class TourController {
         //upload tour image
         String filename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         if (!filename.equals("")){
-            tour.setImage(fileURL + filename);
             try{
                 storageService.save(file);
             }catch(Exception e){
                 logger.error(e.getMessage());
             }
+            tour.setImage(fileURL + filename);
         }
 
         tour.setPlaces(places);
@@ -155,12 +155,12 @@ public class TourController {
 
             String filename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
             if (!filename.equals("")){
-                tour.setImage(fileURL + filename);
                 try{
                     storageService.save(file);
                 }catch(Exception e){
                     logger.error(e.getMessage());
                 }
+                tour.setImage(fileURL + filename);
             }
 
             tour.setPlaces(places);
@@ -177,9 +177,7 @@ public class TourController {
             tourRepository.save(tour);
             return ResponseEntity.ok().body(tour);
         }
-
         return ResponseEntity.notFound().build();
-
     }
 
     // Delete a tour

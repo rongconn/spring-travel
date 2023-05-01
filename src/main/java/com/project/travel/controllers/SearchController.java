@@ -1,6 +1,5 @@
 package com.project.travel.controllers;
 
-import com.project.travel.enums.ETour;
 import com.project.travel.models.Place;
 import com.project.travel.models.Tour;
 import com.project.travel.payload.response.SearchTourAndPlaceResponse;
@@ -9,11 +8,7 @@ import com.project.travel.repository.TourRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 @CrossOrigin(origins = "*")
 @RequestMapping("api/search")
