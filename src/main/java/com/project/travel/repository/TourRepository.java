@@ -18,13 +18,13 @@ public interface TourRepository extends JpaRepository<Tour, Integer> {
             "LIKE %:keyword% " +
             "AND LOWER(t.city) LIKE %:city% "+
             "AND LOWER(t.province) LIKE %:province% "+
-            "AND LOWER(t.type) LIKE %:interests%"
+            "AND LOWER(t.type) IN (:interests)"
     )
     List<Tour> searchTour(
             @Param("keyword") String keyword,
             @Param("city") String city,
             @Param("province") String province,
-            @Param("interests") String interests
+            @Param("interests") List<String> interests
     );
 
     @Query("SELECT t FROM Tour t JOIN t.categories c WHERE c.id = :categoryId")

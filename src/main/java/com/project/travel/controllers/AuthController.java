@@ -75,7 +75,7 @@ public class AuthController {
     List<String> roles = userDetails.getAuthorities().stream()
         .map(GrantedAuthority::getAuthority)
         .collect(Collectors.toList());
-    List<String > interests = userDetails.getInterests();
+    Set<Interest> interests = userDetails.getInterests();
 
     return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
             .body(new UserInfoResponse(

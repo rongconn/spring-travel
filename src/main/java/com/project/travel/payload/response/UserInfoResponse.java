@@ -1,16 +1,19 @@
 package com.project.travel.payload.response;
 
+import com.project.travel.models.Interest;
+
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 public class UserInfoResponse implements Serializable {
 	private Long id;
 	private String username;
 	private String email;
 	private List<String> roles;
-	private List<String> interests;
+	private Set<Interest> interests;
 
-	public UserInfoResponse(Long id, String username, String email, List<String> roles, List<String> interests) {
+	public UserInfoResponse(Long id, String username, String email, List<String> roles, Set<Interest> interests) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
@@ -46,7 +49,7 @@ public class UserInfoResponse implements Serializable {
 		return roles;
 	}
 
-	public List<String> getInterests() {
+	public Set<Interest> getInterests() {
 		return interests;
 	}
 }

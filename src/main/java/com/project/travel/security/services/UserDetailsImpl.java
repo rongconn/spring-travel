@@ -3,6 +3,7 @@ package com.project.travel.security.services;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.project.travel.models.Interest;
@@ -27,10 +28,10 @@ public class UserDetailsImpl implements UserDetails {
 
   private Collection<? extends GrantedAuthority> authorities;
 
-  private List<String> interests;
+  private Set<Interest> interests;
 
   public UserDetailsImpl(Long id, String username, String email, String password,
-                         List<String> interests, Collection<? extends GrantedAuthority> authorities)
+                         Set<Interest> interests, Collection<? extends GrantedAuthority> authorities)
   {
     this.id = id;
     this.username = username;
@@ -44,9 +45,7 @@ public class UserDetailsImpl implements UserDetails {
     List<GrantedAuthority> authorities = user.getRoles().stream()
             .map(role -> new SimpleGrantedAuthority(role.getName().name()))
             .collect(Collectors.toList());
-    List<String > interests = user.getInterests().stream()
-            .map(Interest::getName)
-            .collect(Collectors.toList());
+    Set<Interest> interests = user.getInterests();
 
     return new UserDetailsImpl(
             user.getId(),
@@ -71,7 +70,7 @@ public class UserDetailsImpl implements UserDetails {
     return email;
   }
 
-  public List<String> getInterests() {
+  public Set<Interest> getInterests() {
     return interests;
   }
 

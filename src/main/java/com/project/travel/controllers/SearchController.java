@@ -25,7 +25,7 @@ public class SearchController {
             @RequestParam("query") String query,
             @RequestParam("city") String city,
             @RequestParam("province") String province,
-            @RequestParam("interests") String interests
+            @RequestParam("interests") List<String> interests
     ) {
         List<Place> places = placeRepository.searchPlace(
                 query.toLowerCase(),

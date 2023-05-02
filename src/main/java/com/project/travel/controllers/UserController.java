@@ -55,14 +55,15 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(PlaceController.class);
 
-
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public List<User> getAllUser() {
         return userRepository.findAll();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+
+
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id) {
         User user = userRepository.findById(id).orElse(null);
