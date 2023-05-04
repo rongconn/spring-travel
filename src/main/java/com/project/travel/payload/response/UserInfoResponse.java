@@ -1,6 +1,7 @@
 package com.project.travel.payload.response;
 
 import com.project.travel.models.Interest;
+import org.springframework.http.ResponseCookie;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,13 +13,15 @@ public class UserInfoResponse implements Serializable {
 	private String email;
 	private List<String> roles;
 	private Set<Interest> interests;
+	private ResponseCookie cookie;
 
-	public UserInfoResponse(Long id, String username, String email, List<String> roles, Set<Interest> interests) {
+	public UserInfoResponse(Long id, String username, String email, List<String> roles, Set<Interest> interests, ResponseCookie cookie) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.roles = roles;
 		this.interests = interests;
+		this.cookie = cookie;
 	}
 
 	public Long getId() {
