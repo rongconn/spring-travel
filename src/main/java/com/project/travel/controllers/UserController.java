@@ -72,7 +72,7 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<?> registerUser(
+    public ResponseEntity<?> updateUser(
             @PathVariable(value = "id") Long id,
             @Valid @RequestBody SignupRequest signUpRequest
     ) {

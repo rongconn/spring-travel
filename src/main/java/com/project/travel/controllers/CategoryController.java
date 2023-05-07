@@ -31,7 +31,7 @@ public class CategoryController {
     @Value("${app.fileURL}")
     private String fileURL;
 
-    private static final Logger logger = LoggerFactory.getLogger(PlaceController.class);
+    private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @GetMapping
@@ -87,12 +87,12 @@ public class CategoryController {
 
             String filename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
             if (!filename.equals("")){
-                category.setImage(fileURL + filename);
                 try{
                     storageService.save(file);
                 }catch(Exception e){
                     logger.error(e.getMessage());
                 }
+                category.setImage(fileURL + filename);
             }
             categoryRepository.save(category);
             return ResponseEntity.ok(category);

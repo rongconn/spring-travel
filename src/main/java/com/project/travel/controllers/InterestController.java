@@ -24,7 +24,7 @@ public class InterestController {
 
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @GetMapping("/{id}")
-    public ResponseEntity<Interest> getTourById(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity<Interest> getInterestById(@PathVariable(value = "id") Integer id) {
         Interest tour = interestRepository.findById(id).orElse(null);
         if (tour == null) {
             return ResponseEntity.notFound().build();
